@@ -116,20 +116,10 @@ def get_weather():
         })
 
     except requests.exceptions.RequestException as error:
-
-        print("API ERROR:", error)
-
-        return jsonify({
-            "error": "Unable to connect to weather service."
-        }), 500
+                  return jsonify({"error": f"Weather API error: {str(error)}"}), 500
 
     except Exception as error:
-
-        print("SERVER ERROR:", error)
-
-        return jsonify({
-            "error": "Something went wrong."
-        }), 500
+                 return jsonify({"error": f"Server error: {str(error)}"}), 500
 
 
 if __name__ == "__main__":
