@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -11,7 +10,12 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Atmos | Weather</title>
+    <meta
+        name="description"
+        content="Live weather dashboard with current conditions, hourly weather and a 7-day forecast."
+    >
+
+    <title>Weather Dashboard</title>
 
     <link
         rel="stylesheet"
@@ -27,156 +31,254 @@
     <div class="background-glow glow-two"></div>
 
 
-    <!-- NAVBAR -->
+    <main class="app-container">
 
-    <nav class="navbar">
+        <!-- ================= HEADER ================= -->
 
-        <div class="logo">
+        <header class="header">
 
-            <div class="logo-mark">
-                A
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ☁
+                </div>
+
+                <div>
+
+                    <div class="brand-name">
+                        WEATHER
+                    </div>
+
+                    <div class="brand-subtitle">
+                        LIVE CONDITIONS
+                    </div>
+
+                </div>
+
             </div>
 
-            <span>ATMOS</span>
 
-        </div>
+            <div class="header-status">
 
-        <div class="live">
-            <span></span>
-            LIVE WEATHER
-        </div>
+                <span class="status-dot"></span>
 
-    </nav>
+                <span>
+                    LIVE DATA
+                </span>
+
+            </div>
+
+        </header>
 
 
-    <main>
-
-
-        <!-- HERO -->
+        <!-- ================= HERO ================= -->
 
         <section class="hero">
 
-            <div class="eyebrow">
-                REAL-TIME ATMOSPHERIC DATA
-            </div>
+            <div class="hero-text">
 
-            <h1>
-                Weather,
-                <span>reimagined.</span>
-            </h1>
+                <div class="eyebrow">
+                    WEATHER INTELLIGENCE
+                </div>
 
-            <p>
-                Explore live weather conditions and forecasts
-                from anywhere around the world.
-            </p>
+                <h1>
+                    Know the weather.<br>
+                    <span>Plan your day.</span>
+                </h1>
 
-
-            <div class="search">
-
-                <span class="search-symbol">
-                    ⌕
-                </span>
-
-                <input
-                    id="cityInput"
-                    type="text"
-                    placeholder="Search any city..."
-                    autocomplete="off"
-                >
-
-                <button id="searchButton">
-                    Search
-                    <b>→</b>
-                </button>
+                <p>
+                    Search any city to get current conditions,
+                    hourly weather and a seven-day forecast.
+                </p>
 
             </div>
 
-            <div
-                id="message"
-                class="message"
-            ></div>
+
+            <div class="search-wrapper">
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        id="cityInput"
+                        type="text"
+                        placeholder="Search for a city..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+                    <button
+                        id="searchButton"
+                        type="button"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+                <div class="search-hint">
+                    Press Enter to search
+                </div>
+
+            </div>
 
         </section>
 
 
-        <!-- LOADING -->
+        <!-- ================= MESSAGE ================= -->
 
         <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <!-- ================= LOADING ================= -->
+
+        <section
             id="loading"
             class="loading hidden"
         >
 
-            <div class="spinner"></div>
+            <div class="loading-spinner"></div>
 
-            <span>
-                Fetching live weather...
-            </span>
+            <div>
 
-        </div>
+                <strong>
+                    Loading weather
+                </strong>
+
+                <span>
+                    Getting the latest conditions...
+                </span>
+
+            </div>
+
+        </section>
 
 
-        <!-- WEATHER CONTENT -->
+        <!-- ================= EMPTY STATE ================= -->
+
+        <section
+            id="emptyState"
+            class="empty-state"
+        >
+
+            <div class="empty-weather-icon">
+                ☁️
+            </div>
+
+            <h2>
+                Search for a city
+            </h2>
+
+            <p>
+                Enter a city above to view its weather conditions.
+            </p>
+
+        </section>
+
+
+        <!-- ================= WEATHER ================= -->
 
         <section
             id="weatherSection"
-            class="hidden"
+            class="weather-section hidden"
         >
 
 
-            <!-- MAIN CARD -->
+            <!-- LOCATION -->
 
-            <div class="main-card">
+            <div class="location-bar">
 
+                <div class="location-main">
 
-                <div class="location">
+                    <div class="location-pin">
+                        ◉
+                    </div>
 
-                    <small>
-                        CURRENT CONDITIONS
-                    </small>
+                    <div>
 
-                    <h2 id="cityName">
-                        --
-                    </h2>
+                        <div class="location-label">
+                            CURRENT LOCATION
+                        </div>
 
-                    <p id="countryName">
-                        --
-                    </p>
+                        <h2 id="cityName">
+                            —
+                        </h2>
 
-                    <div class="coordinates">
-
-                        <span id="latitude">
-                            --
-                        </span>
-
-                        ,
-
-                        <span id="longitude">
-                            --
-                        </span>
+                        <p id="countryName">
+                            —
+                        </p>
 
                     </div>
 
                 </div>
 
 
-                <div class="current-weather">
+                <div class="coordinates">
+
+                    <div class="coordinate">
+
+                        <span>
+                            LAT
+                        </span>
+
+                        <strong id="latitude">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="coordinate-divider"></div>
+
+
+                    <div class="coordinate">
+
+                        <span>
+                            LON
+                        </span>
+
+                        <strong id="longitude">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT WEATHER -->
+
+            <div class="current-weather-card">
+
+                <div class="current-left">
 
                     <div
                         id="weatherIcon"
-                        class="weather-icon"
+                        class="main-weather-icon"
                     >
                         ☀️
                     </div>
 
-                    <div>
 
-                        <div class="temperature">
+                    <div class="current-temperature">
+
+                        <div class="temperature-line">
 
                             <span id="temperature">
-                                --
+                                —
                             </span>
 
-                            <sup>°C</sup>
+                            <sup>
+                                °C
+                            </sup>
 
                         </div>
 
@@ -184,7 +286,7 @@
                             id="condition"
                             class="condition"
                         >
-                            --
+                            —
                         </div>
 
                     </div>
@@ -192,19 +294,18 @@
                 </div>
 
 
-                <div class="day">
+                <div class="current-right">
 
-                    <small>
-                        TIME
-                    </small>
+                    <div class="status-label">
+                        STATUS
+                    </div>
 
-                    <strong id="dayStatus">
-                        --
-                    </strong>
-
-                    <span>
-                        Live data
-                    </span>
+                    <div
+                        id="dayStatus"
+                        class="status-value"
+                    >
+                        —
+                    </div>
 
                 </div>
 
@@ -213,24 +314,24 @@
 
             <!-- WEATHER DETAILS -->
 
-            <div class="details">
+            <div class="details-grid">
 
 
-                <div class="detail">
+                <div class="detail-card">
 
                     <div class="detail-icon">
                         🌡️
                     </div>
 
-                    <div>
+                    <div class="detail-content">
 
-                        <small>
+                        <span>
                             FEELS LIKE
-                        </small>
+                        </span>
 
                         <strong>
                             <span id="feelsLike">
-                                --
+                                —
                             </span>°C
                         </strong>
 
@@ -239,21 +340,21 @@
                 </div>
 
 
-                <div class="detail">
+                <div class="detail-card">
 
                     <div class="detail-icon">
                         💧
                     </div>
 
-                    <div>
+                    <div class="detail-content">
 
-                        <small>
+                        <span>
                             HUMIDITY
-                        </small>
+                        </span>
 
                         <strong>
                             <span id="humidity">
-                                --
+                                —
                             </span>%
                         </strong>
 
@@ -262,23 +363,23 @@
                 </div>
 
 
-                <div class="detail">
+                <div class="detail-card">
 
                     <div class="detail-icon">
                         💨
                     </div>
 
-                    <div>
+                    <div class="detail-content">
 
-                        <small>
+                        <span>
                             WIND
-                        </small>
+                        </span>
 
                         <strong>
                             <span id="wind">
-                                --
+                                —
                             </span>
-                            km/h
+                            <small>km/h</small>
                         </strong>
 
                     </div>
@@ -286,23 +387,23 @@
                 </div>
 
 
-                <div class="detail">
+                <div class="detail-card">
 
                     <div class="detail-icon">
-                        ◈
+                        ◉
                     </div>
 
-                    <div>
+                    <div class="detail-content">
 
-                        <small>
+                        <span>
                             PRESSURE
-                        </small>
+                        </span>
 
                         <strong>
                             <span id="pressure">
-                                --
+                                —
                             </span>
-                            hPa
+                            <small>hPa</small>
                         </strong>
 
                     </div>
@@ -312,45 +413,10 @@
             </div>
 
 
-            <!-- HOURLY -->
-
-            <div class="section-title">
-
-                <div>
-                    <small>NEXT HOURS</small>
-                    <h2>Hourly forecast</h2>
-                </div>
-
-            </div>
-
-
-            <div
-                id="hourly"
-                class="hourly"
-            ></div>
-
-
-            <!-- DAILY -->
-
-            <div class="section-title">
-
-                <div>
-                    <small>THE WEEK AHEAD</small>
-                    <h2>7-day forecast</h2>
-                </div>
-
-            </div>
-
-
-            <div
-                id="forecast"
-                class="forecast"
-            ></div>
-
-
-            <!-- SUN -->
+            <!-- SUN INFORMATION -->
 
             <div class="sun-grid">
+
 
                 <div class="sun-card">
 
@@ -360,12 +426,12 @@
 
                     <div>
 
-                        <small>
+                        <span>
                             SUNRISE
-                        </small>
+                        </span>
 
                         <strong id="sunrise">
-                            --
+                            —
                         </strong>
 
                     </div>
@@ -381,12 +447,12 @@
 
                     <div>
 
-                        <small>
+                        <span>
                             SUNSET
-                        </small>
+                        </span>
 
                         <strong id="sunset">
-                            --
+                            —
                         </strong>
 
                     </div>
@@ -396,20 +462,18 @@
 
                 <div class="sun-card">
 
-                    <div class="uv">
-                        <span id="uvIndex">
-                            --
-                        </span>
+                    <div class="sun-icon">
+                        ☀️
                     </div>
 
                     <div>
 
-                        <small>
+                        <span>
                             UV INDEX
-                        </small>
+                        </span>
 
-                        <strong>
-                            Today's maximum
+                        <strong id="uvIndex">
+                            —
                         </strong>
 
                     </div>
@@ -419,38 +483,78 @@
             </div>
 
 
+            <!-- ================= HOURLY ================= -->
+
+            <section class="forecast-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <div class="section-kicker">
+                            NEXT HOURS
+                        </div>
+
+                        <h2>
+                            Hourly Forecast
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="hourly"
+                    class="hourly-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= 7 DAY ================= -->
+
+            <section class="forecast-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <div class="section-kicker">
+                            THIS WEEK
+                        </div>
+
+                        <h2>
+                            7-Day Forecast
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="forecast"
+                    class="daily-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <footer>
+
+                <span>
+                    Weather data provided by Open-Meteo
+                </span>
+
+            </footer>
+
+
         </section>
-
-
-        <!-- INITIAL STATE -->
-
-        <section
-            id="emptyState"
-            class="empty"
-        >
-
-            <div class="empty-symbol">
-                ☁
-            </div>
-
-            <h2>
-                Search the atmosphere.
-            </h2>
-
-            <p>
-                Enter a city above to see its live weather.
-            </p>
-
-        </section>
-
 
     </main>
-
-
-    <footer>
-        <span>ATMOS</span>
-        <span>Powered by Open-Meteo</span>
-    </footer>
 
 
     <script
