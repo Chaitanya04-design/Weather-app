@@ -11,19 +11,15 @@ def home():
 
 @app.route("/api/weather")
 def get_weather():
-
     city = request.args.get("city", "").strip()
 
     if not city:
-        return jsonify({
-            "error": "Please enter a city name."
-        }), 400
+        return jsonify({"error": "Please enter a city name."}), 400
 
     try:
         # -----------------------------
-        # FIND CITY
+        # 1. Find the city
         # -----------------------------
-
         geo_response = requests.get(
             "https://geocoding-api.open-meteo.com/v1/search",
             params={
@@ -32,17 +28,14 @@ def get_weather():
                 "language": "en",
                 "format": "json"
             },
-            timeout=10
+            timeout=15
         )
 
         geo_response.raise_for_status()
-
         geo_data = geo_response.json()
 
         if not geo_data.get("results"):
-            return jsonify({
-                "error": "City not found."
-            }), 404
+            return jsonify({"error": "City not found."}), 404
 
         location = geo_data["results"][0]
 
@@ -50,9 +43,8 @@ def get_weather():
         longitude = location["longitude"]
 
         # -----------------------------
-        # WEATHER
+        # 2. Get weather information
         # -----------------------------
-
         weather_response = requests.get(
             "https://api.open-meteo.com/v1/forecast",
             params={
@@ -86,21 +78,21 @@ def get_weather():
                     "precipitation_probability_max"
                 ]),
 
-                "forecast_days": 7,
+                # Reduced from 7 days to 3 to reduce API load
+                "forecast_days": 3,
+
                 "timezone": "auto"
             },
 
-            timeout=10
+            timeout=15
         )
 
         weather_response.raise_for_status()
-
         weather = weather_response.json()
 
         # -----------------------------
-        # SEND DATA TO WEBSITE
+        # 3. Send data to frontend
         # -----------------------------
-
         return jsonify({
             "location": {
                 "name": location.get("name", city),
@@ -110,16 +102,26 @@ def get_weather():
                 "longitude": longitude
             },
 
-            "current": weather["current"],
-            "hourly": weather["hourly"],
-            "daily": weather["daily"]
+            "current": weather.get("current", {}),
+            "hourly": weather.get("hourly", {}),
+            "daily": weather.get("daily", {})
         })
 
+    # -----------------------------
+    # API connection error
+    # -----------------------------
     except requests.exceptions.RequestException as error:
-                  return jsonify({"error": f"Weather API error: {str(error)}"}), 500
+        return jsonify({
+            "error": f"Weather API error: {str(error)}"
+        }), 500
 
+    # -----------------------------
+    # Any other server error
+    # -----------------------------
     except Exception as error:
-                 return jsonify({"error": f"Server error: {str(error)}"}), 500
+        return jsonify({
+            "error": f"Server error: {str(error)}"
+        }), 500
 
 
 if __name__ == "__main__":
