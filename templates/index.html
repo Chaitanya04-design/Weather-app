@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Atmos | Weather</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                A
+            </div>
+
+            <span>ATMOS</span>
+
+        </div>
+
+        <div class="live">
+            <span></span>
+            LIVE WEATHER
+        </div>
+
+    </nav>
+
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="eyebrow">
+                REAL-TIME ATMOSPHERIC DATA
+            </div>
+
+            <h1>
+                Weather,
+                <span>reimagined.</span>
+            </h1>
+
+            <p>
+                Explore live weather conditions and forecasts
+                from anywhere around the world.
+            </p>
+
+
+            <div class="search">
+
+                <span class="search-symbol">
+                    ⌕
+                </span>
+
+                <input
+                    id="cityInput"
+                    type="text"
+                    placeholder="Search any city..."
+                    autocomplete="off"
+                >
+
+                <button id="searchButton">
+                    Search
+                    <b>→</b>
+                </button>
+
+            </div>
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </section>
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading hidden"
+        >
+
+            <div class="spinner"></div>
+
+            <span>
+                Fetching live weather...
+            </span>
+
+        </div>
+
+
+        <!-- WEATHER CONTENT -->
+
+        <section
+            id="weatherSection"
+            class="hidden"
+        >
+
+
+            <!-- MAIN CARD -->
+
+            <div class="main-card">
+
+
+                <div class="location">
+
+                    <small>
+                        CURRENT CONDITIONS
+                    </small>
+
+                    <h2 id="cityName">
+                        --
+                    </h2>
+
+                    <p id="countryName">
+                        --
+                    </p>
+
+                    <div class="coordinates">
+
+                        <span id="latitude">
+                            --
+                        </span>
+
+                        ,
+
+                        <span id="longitude">
+                            --
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="current-weather">
+
+                    <div
+                        id="weatherIcon"
+                        class="weather-icon"
+                    >
+                        ☀️
+                    </div>
+
+                    <div>
+
+                        <div class="temperature">
+
+                            <span id="temperature">
+                                --
+                            </span>
+
+                            <sup>°C</sup>
+
+                        </div>
+
+                        <div
+                            id="condition"
+                            class="condition"
+                        >
+                            --
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="day">
+
+                    <small>
+                        TIME
+                    </small>
+
+                    <strong id="dayStatus">
+                        --
+                    </strong>
+
+                    <span>
+                        Live data
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEATHER DETAILS -->
+
+            <div class="details">
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        🌡️
+                    </div>
+
+                    <div>
+
+                        <small>
+                            FEELS LIKE
+                        </small>
+
+                        <strong>
+                            <span id="feelsLike">
+                                --
+                            </span>°C
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        💧
+                    </div>
+
+                    <div>
+
+                        <small>
+                            HUMIDITY
+                        </small>
+
+                        <strong>
+                            <span id="humidity">
+                                --
+                            </span>%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        💨
+                    </div>
+
+                    <div>
+
+                        <small>
+                            WIND
+                        </small>
+
+                        <strong>
+                            <span id="wind">
+                                --
+                            </span>
+                            km/h
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <small>
+                            PRESSURE
+                        </small>
+
+                        <strong>
+                            <span id="pressure">
+                                --
+                            </span>
+                            hPa
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HOURLY -->
+
+            <div class="section-title">
+
+                <div>
+                    <small>NEXT HOURS</small>
+                    <h2>Hourly forecast</h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="hourly"
+                class="hourly"
+            ></div>
+
+
+            <!-- DAILY -->
+
+            <div class="section-title">
+
+                <div>
+                    <small>THE WEEK AHEAD</small>
+                    <h2>7-day forecast</h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="forecast"
+                class="forecast"
+            ></div>
+
+
+            <!-- SUN -->
+
+            <div class="sun-grid">
+
+                <div class="sun-card">
+
+                    <div class="sun-icon">
+                        🌅
+                    </div>
+
+                    <div>
+
+                        <small>
+                            SUNRISE
+                        </small>
+
+                        <strong id="sunrise">
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="sun-card">
+
+                    <div class="sun-icon">
+                        🌇
+                    </div>
+
+                    <div>
+
+                        <small>
+                            SUNSET
+                        </small>
+
+                        <strong id="sunset">
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="sun-card">
+
+                    <div class="uv">
+                        <span id="uvIndex">
+                            --
+                        </span>
+                    </div>
+
+                    <div>
+
+                        <small>
+                            UV INDEX
+                        </small>
+
+                        <strong>
+                            Today's maximum
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- INITIAL STATE -->
+
+        <section
+            id="emptyState"
+            class="empty"
+        >
+
+            <div class="empty-symbol">
+                ☁
+            </div>
+
+            <h2>
+                Search the atmosphere.
+            </h2>
+
+            <p>
+                Enter a city above to see its live weather.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+        <span>ATMOS</span>
+        <span>Powered by Open-Meteo</span>
+    </footer>
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>
